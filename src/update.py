@@ -4,7 +4,7 @@ import argparse
 
 import pandas as pd
 
-from appendix_figures import evolution_bars_cumul_plot
+from appendix_figures import evolution_bars_plot
 from process_data import get_historic_data_from_CSSE_gh_repo, update_data
 from utils import create_index_html, git_push, scraping_anss
 
@@ -32,7 +32,7 @@ def main(args):
     print("    file saved to ".format(DATA_CSV_PATH))
 
     print("Creating Cumulated evolution bars plot...")
-    evol_bars_fig = evolution_bars_cumul_plot(df)
+    evol_bars_fig = evolution_bars_plot(df)
 
     figs = [evol_bars_fig]
 

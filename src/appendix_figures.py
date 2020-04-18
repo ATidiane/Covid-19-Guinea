@@ -27,10 +27,14 @@ DAILY_REPORTS_PATH = COVID_19_DATA_PATH + \
 GUINEA_COVID_19_START_DATE = '03-13-2020'
 
 
-def evolution_bars_cumul_plot(df):
+def evolution_bars_plot(df):
     x = df['Date'].values
 
-    fig = go.Figure(data=[
+    fig = go.Figure()
+
+    config = {'displayModeBar': True}
+
+    fig.add_traces(data=[
         go.Bar(
             name='Décès',
             x=x,
@@ -47,18 +51,62 @@ def evolution_bars_cumul_plot(df):
             y=df['Cas hospitalisés'],
             marker_color='gold')
     ])
+
     fig.add_trace({'x': df['Date'],
                    'y': df['Cas confirmés'],
                    'name': 'Cas confirmés'})
 
-    # Change the bar mode
-    fig.update_layout(template='plotly_dark',
-                      barmode='stack', hovermode='x',
-                      xaxis_tickangle=-60,
-                      legend_orientation="h",
-                      legend=dict(x=0, y=-0.3),
-                      margin=dict(t=40, b=0, l=25, r=3),
-                      title='Évolution du Covid-19 en Guinée : données cumulées')
+    fig.add_traces(data=[
+        go.Bar(name='Nouveaux décès', x=x, y=df['Nouveaux décès'].values, marker_color='red',
+               visible=False),
+        go.Bar(name='Nouveaux guéris', x=x, y=df['Nouveaux guéris'].values, marker_color='darkgreen',
+               visible=False),
+        go.Bar(name='Nouveaux cas', x=x, y=df['Nouveaux cas'], marker_color='gold',
+               visible=False)
+    ])
+
     fig.update_yaxes(automargin=True)
+
+    # Add dropdown
+    fig.update_layout(
+        updatemenus=[
+            dict(
+                type='dropdown',
+                active=0,
+                buttons=list([
+                    dict(
+                        label="Cumul",
+                        method="update",
+                        args=[
+                            {"visible": [True, True, True, True, False, False, False]}],
+                    ),
+                    dict(
+                        label="Par jour",
+                        method="update",
+                        args=[{"visible": [False, False, False, False, True, True, True]},
+                              {"title": "Évolution du Covid-19 en Guinée : nouvelles stats par jour",
+                               }],
+                    )
+                ]),
+                direction="down",
+                showactive=True,
+                x=0.01,
+                xanchor="center",
+                y=1.02,
+                yanchor='middle',
+                bgcolor='darkred',
+                font=dict(color='gray', size=14)
+            ),
+        ],
+        template='plotly_dark',
+        barmode='stack', hovermode='x',
+        xaxis_tickangle=-60,
+        legend_orientation="h",
+        legend=dict(x=0, y=-0.3),
+        margin=dict(t=40, b=0, l=25, r=3),
+        title=dict(
+            text='Évolution du Covid-19 en Guinée : données cumulées', x=0.5, y=0.1,
+            font=dict(size=13)),
+    )
 
     return fig
