@@ -37,7 +37,7 @@ def update_data(df, new_line):
     df = df.append(pd.DataFrame(new_line, index=df.columns).T)
 
     # Dropping duplicates lines
-    df.iloc[-3:, :] = df.iloc[-3:,
+    df.iloc[-2:, :] = df.iloc[-2:,
                               :].drop_duplicates(subset=['Cas confirmés', 'Décès', 'Guéris'])
 
     df = df.dropna(how='all')
