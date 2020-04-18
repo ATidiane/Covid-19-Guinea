@@ -106,7 +106,7 @@ def evolution_bars_plot(df):
         margin=dict(t=40, b=0, l=25, r=3),
         title=dict(
             text='Évolution du Covid-19 en Guinée : données cumulées', x=0.5, y=0.1,
-            font=dict(size=13)),
+            font=dict(size=12.5)),
     )
 
     return fig
