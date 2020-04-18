@@ -40,7 +40,7 @@ def update_data(df, new_line):
     df.iloc[-2:, :] = df.iloc[-2:,
                               :].drop_duplicates(subset=['Cas confirmés', 'Décès', 'Guéris'])
 
-    df.dropna(how='all')
+    df = df.dropna(how='all')
 
     return df
 
