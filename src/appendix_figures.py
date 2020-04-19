@@ -66,7 +66,7 @@ def cumul_plot(df):
                       legend=dict(x=0, y=-0.3),
                       margin=dict(t=40, b=0, l=25, r=3),
                       title=dict(text='Évolution du Covid-19 en Guinée : données cumulées',
-                                 x=0.5, y=0.94))
+                                 x=0.5, y=0.94, font=dict(size=13)))
     fig.update_yaxes(automargin=True)
 
     return fig
@@ -108,7 +108,7 @@ def daily_plot(df):
                       legend=dict(x=0, y=-0.3),
                       margin=dict(t=40, b=0, l=25, r=3),
                       title=dict(text='Suivi journalier du Covid-19 en Guinée',
-                                 x=0.5, y=0.94))
+                                 x=0.5, y=0.95))
     fig.update_yaxes(automargin=True)
 
     return fig
