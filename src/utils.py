@@ -57,6 +57,19 @@ def create_index_html(figs=[]):
                 f.write(fig.to_html(full_html=False, include_plotlyjs='cdn'))
 
 
+def create_html(fig, file_name):
+    """FIXME! briefly describe function
+
+    :param figs: List of figs
+    :returns:
+    :rtype:
+
+    """
+
+    with open(file_name, 'w') as f:
+        f.write(fig.to_html(full_html=False, include_plotlyjs='cdn'))
+
+
 def git_push():
     """Git push covid-19-guinea repo
 

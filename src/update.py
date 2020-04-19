@@ -4,11 +4,13 @@ import argparse
 
 import pandas as pd
 
-from appendix_figures import evolution_bars_plot
+from appendix_figures import cumul_plot, daily_plot, evolution_bars_plot
 from process_data import get_historic_data_from_CSSE_gh_repo, update_data
-from utils import create_index_html, git_push, scraping_anss
+from utils import create_html, create_index_html, git_push, scraping_anss
 
 DATA_CSV_PATH = '../data/guinea.csv'
+CUMUL_HTML_PATH = '../cumul.html'
+DAILY_HTML_PATH = '../daily.html'
 
 
 def main(args):
@@ -31,13 +33,19 @@ def main(args):
 
     print("    file saved to ".format(DATA_CSV_PATH))
 
-    print("Creating Cumulated evolution bars plot...")
     evol_bars_fig = evolution_bars_plot(df)
+
+    print("Creating Cumulated evolution bars plot...")
+    cumul_fig = cumul_plot(df)
+    print("Creating Daily evolution bars plot")
+    daily_fig = daily_plot(df)
 
     figs = [evol_bars_fig]
 
-    print("Creating index.html file... ")
+    print("Creating index.html, cumul.html, daily.html files... ")
     create_index_html(figs)
+    create_html(cumul_fig, CUMUL_HTML_PATH)
+    create_html(daily_fig, DAILY_HTML_PATH)
 
     print("Pushing updates to github...")
     git_push()
