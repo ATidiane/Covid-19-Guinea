@@ -41,6 +41,7 @@ def update_data(df, new_line):
                               :].drop_duplicates(subset=['Cas confirmés', 'Décès', 'Guéris'])
 
     df = df.dropna(how='all')
+    df[list(df.columns)[1:]] = df.iloc[:, 1:].applymap(int)
 
     return df
 
